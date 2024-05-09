@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import ReactPlayer from "react-player";
+import React, { useEffect, useState, useRef } from "react";
+import AudioPlayer from "./AudioPlayer";
+import TranscriptEntry from "./TranscriptEntry";
 
-type TranscriptProps = {
+interface TranscriptProps {
   transcript: {
     content: string;
     role: string;
@@ -9,28 +10,23 @@ type TranscriptProps = {
     end: number;
   }[];
   audioUrl: string;
-};
+}
 
 const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
-  const playerRef = useRef<ReactPlayer | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const audioPlayerRef = useRef<{ seekTo: (time: number) => void } | null>(
+    null
+  );
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   const handleTranscriptClick = (time: number) => {
-    if (playerRef.current) {
-      playerRef.current.seekTo(time, "seconds");
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.seekTo(time);
       setPlaying(true);
-    }
-  };
-
-  const handleStop = () => {
-    if (playerRef.current) {
-      playerRef.current.seekTo(0);
-      setPlaying(false);
     }
   };
 
@@ -40,37 +36,23 @@ const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
 
   return (
     <div className="w-full max-w-2xl mx-auto my-8 p-4 bg-white shadow-xl rounded-lg">
-      <ReactPlayer
-        ref={playerRef}
+      <h2 className="text-xl font-semibold text-center mb-4">
+        Transcripción de la Llamada
+      </h2>
+      <AudioPlayer
+        ref={audioPlayerRef}
         url={audioUrl}
-        controls
+        handleStop={() => setPlaying(false)}
         playing={playing}
-        width="100%"
-        height="50px"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
+        setPlaying={setPlaying}
       />
-      <div className="flex justify-center mt-1 mb-4">
-        <button
-          onClick={handleStop}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors"
-        >
-          Stop
-        </button>
-      </div>
       <div className="transcript space-y-3">
         {transcript.map((entry, index) => (
-          <p
+          <TranscriptEntry
             key={index}
+            entry={entry}
             onClick={() => handleTranscriptClick(entry.start)}
-            className={`message p-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${
-              entry.role === "agent"
-                ? "bg-blue-200 text-blue-900 cursor-pointer"
-                : "bg-green-200 text-green-900 cursor-pointer"
-            }`}
-          >
-            {entry.content}
-          </p>
+          />
         ))}
       </div>
     </div>
