@@ -7,10 +7,10 @@ const Footer = () => {
       <div className="flex justify-between items-center w-full max-w-4xl">
         <span>© 2024 Matias Arroyo. All rights reserved.</span>
         <div>
-          <a href="https://linkedin.com/in/matias-arroyo19" target="_blank" rel="noopener noreferrer" className="text-gray-800 p-2">
+          <a href="https://www.linkedin.com/in/matias-arroyo19" target="_blank" rel="noopener noreferrer" className="text-gray-800 p-2">
             <FaLinkedin size={24} />
           </a>
-          <a href="https://github.com/matiasarroyo1978/audio-test" target="_blank" rel="noopener noreferrer" className="text-gray-800 p-2">
+          <a href="https://www.github.com/matiasarroyo1978/audio-test" target="_blank" rel="noopener noreferrer" className="text-gray-800 p-2">
             <FaGithub size={24} />
           </a>
         </div>
