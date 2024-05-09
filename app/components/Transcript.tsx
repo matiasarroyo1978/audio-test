@@ -18,6 +18,7 @@ const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
   const audioPlayerRef = useRef<{ seekTo: (time: number) => void } | null>(
     null
   );
+  const titleClass = "text-xl font-semibold text-center mb-4";
 
   useEffect(() => {
     setIsClient(true);
@@ -36,7 +37,7 @@ const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
 
   return (
     <div className="w-full max-w-2xl mx-auto my-8 p-4 bg-white shadow-xl rounded-lg">
-       <h2 className="text-xl font-semibold text-center mb-4">
+       <h2 className={titleClass}>
         Audio de la llamada telefónica
       </h2>
       <AudioPlayer
@@ -46,7 +47,7 @@ const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
         playing={playing}
         setPlaying={setPlaying}
       />
-      <h2 className="text-xl font-semibold text-center mb-4">
+      <h2 className={titleClass}>
         Transcripción de la llamada
       </h2>
       <div className="transcript space-y-3">
