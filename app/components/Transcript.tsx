@@ -36,6 +36,9 @@ const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
 
   return (
     <div className="w-full max-w-2xl mx-auto my-8 p-4 bg-white shadow-xl rounded-lg">
+       <h2 className="text-xl font-semibold text-center mb-4">
+        Audio de la llamada telefónica
+      </h2>
       <AudioPlayer
         ref={audioPlayerRef}
         url={audioUrl}
@@ -44,7 +47,7 @@ const Transcript = ({ transcript, audioUrl }: TranscriptProps) => {
         setPlaying={setPlaying}
       />
       <h2 className="text-xl font-semibold text-center mb-4">
-        Transcripción de la Llamada
+        Transcripción de la llamada
       </h2>
       <div className="transcript space-y-3">
         {transcript.map((entry, index) => (
