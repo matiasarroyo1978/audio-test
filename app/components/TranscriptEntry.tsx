@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { BiBot, BiUserVoice } from "react-icons/bi";
 
 interface TranscriptEntryProps {
   entry: {
@@ -11,16 +12,23 @@ interface TranscriptEntryProps {
 }
 
 const TranscriptEntry = ({ entry, onClick }: TranscriptEntryProps) => (
-  <p
-    onClick={onClick}
-    className={`message flex items-center gap-2 p-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${
-      entry.role === "agent"
-        ? "bg-blue-200 text-blue-900 cursor-pointer"
-        : "bg-green-200 text-green-900 cursor-pointer"
-    }`}
-  >
-    {entry.content}
-  </p>
+  <div className={`message-container flex flex-col gap-2`}>
+    {entry.role === "agent" ? (
+      <BiBot className="text-3xl relative left-0 top-0 mt-4 ml-4" />
+    ) : (
+      <BiUserVoice className="text-3xl relative left-0 top-0 mt-4 ml-4" />
+    )}
+    <div
+      onClick={onClick}
+      className={`message flex items-center gap-2 p-4 rounded-lg relative transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${
+        entry.role === "agent"
+          ? "bg-blue-200 text-blue-900 cursor-pointer"
+          : "bg-green-200 text-green-900 cursor-pointer"
+      }`}
+    >
+      <p>{entry.content}</p>
+    </div>
+  </div>
 );
 
 export default TranscriptEntry;
